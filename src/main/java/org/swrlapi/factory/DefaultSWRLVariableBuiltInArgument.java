@@ -41,7 +41,7 @@ class DefaultSWRLVariableBuiltInArgument extends DefaultSWRLBuiltInArgument impl
   {
     this.variableIRI = variableIRI;
 
-    com.google.common.base.Optional<String> remainder = variableIRI.getRemainder();
+    Optional<String> remainder = variableIRI.getRemainder();
 
     if (remainder.isPresent())
       variableName = remainder.get();

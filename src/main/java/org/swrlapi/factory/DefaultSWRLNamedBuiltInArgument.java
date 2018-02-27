@@ -16,12 +16,28 @@ import org.swrlapi.builtins.arguments.SWRLNamedBuiltInArgument;
 
 import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Stream;
 
 abstract class DefaultSWRLNamedBuiltInArgument extends DefaultSWRLBuiltInArgument implements SWRLNamedBuiltInArgument
 {
   private static final long serialVersionUID = 1L;
 
   @NonNull private final OWLEntity entity;
+
+  @Override
+  public Stream<?> components() {
+      return Stream.of(entity, getBoundVariableName());
+  }
+
+  @Override
+  public int hashIndex() {
+      return 180683;
+  }
+
+  @Override
+  public int typeIndex() {
+      return 186008;
+  }
 
   protected DefaultSWRLNamedBuiltInArgument(@NonNull OWLEntity entity)
   {

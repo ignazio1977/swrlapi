@@ -1,7 +1,10 @@
 package org.swrlapi.factory;
 
+import java.util.stream.Stream;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentType;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentVisitor;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentVisitorEx;
@@ -14,6 +17,28 @@ class DefaultSWRLClassExpressionBuiltInArgument extends DefaultSWRLBuiltInArgume
   private static final long serialVersionUID = 1L;
 
   @NonNull private final OWLClassExpression classExpression;
+
+  @Override
+  public Stream<?> components() {
+      return Stream.of(classExpression, getBoundVariableName());
+  }
+
+  @Override
+  public int hashIndex() {
+      return 200683;
+  }
+
+  @Override
+  public int typeIndex() {
+      return 206008;
+  }
+
+  @Override
+  public int initHashCode() {
+    int hash = hashIndex();
+    hash = OWLObject.hashIteration(hash, classExpression.hashCode());
+    return OWLObject.hashIteration(hash, getBoundVariableName().hashCode());
+  }
 
   public DefaultSWRLClassExpressionBuiltInArgument(@NonNull OWLClassExpression classExpression)
   {

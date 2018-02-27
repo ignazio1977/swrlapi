@@ -1,6 +1,9 @@
 package org.swrlapi.factory;
 
+import java.util.stream.Stream;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentType;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgumentVisitor;
@@ -14,6 +17,28 @@ class DefaultSWRLObjectPropertyExpressionBuiltInArgument extends DefaultSWRLBuil
   private static final long serialVersionUID = 1L;
 
   private final OWLObjectPropertyExpression propertyExpression;
+
+  @Override
+  public Stream<?> components() {
+      return Stream.of(propertyExpression, getBoundVariableName());
+  }
+
+  @Override
+  public int hashIndex() {
+      return 170683;
+  }
+
+  @Override
+  public int typeIndex() {
+      return 176008;
+  }
+
+  @Override
+  public int initHashCode() {
+    int hash = hashIndex();
+    hash = OWLObject.hashIteration(hash, propertyExpression.hashCode());
+    return OWLObject.hashIteration(hash, getBoundVariableName().hashCode());
+  }
 
   public DefaultSWRLObjectPropertyExpressionBuiltInArgument(@NonNull OWLObjectPropertyExpression propertyExpression)
   {

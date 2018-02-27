@@ -266,7 +266,7 @@ class DefaultSWRLRuleAndQueryRenderer implements SWRLRuleRenderer, SQWRLQueryRen
 
       return shortForm.startsWith(":") ? shortForm.substring(1) : shortForm;
     } else {
-      com.google.common.base.Optional<String> remainder = argumentIRI.getRemainder();
+      Optional<String> remainder = argumentIRI.getRemainder();
 
       if (remainder.isPresent())
         return "?" + remainder.get();
@@ -414,7 +414,7 @@ class DefaultSWRLRuleAndQueryRenderer implements SWRLRuleRenderer, SQWRLQueryRen
 
   @NonNull private String visit(@NonNull OWLDataRange dataRange)
   {
-    if (dataRange.isDatatype()) {
+    if (dataRange.isOWLDatatype()) {
       OWLDatatype datatype = dataRange.asOWLDatatype();
       return getShortForm(datatype.getIRI());
     } else
@@ -503,7 +503,7 @@ class DefaultSWRLRuleAndQueryRenderer implements SWRLRuleRenderer, SQWRLQueryRen
   {
     IRI variableIRI = argument.getIRI();
 
-    com.google.common.base.Optional<String> remainder = variableIRI.getRemainder();
+    Optional<String> remainder = variableIRI.getRemainder();
 
     if (remainder.isPresent())
       return "?" + remainder.get();

@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -1426,8 +1427,7 @@ class DefaultSWRLAPIOWLOntology implements SWRLAPIOWLOntology, OWLOntologyChange
       .collect(Collectors.toSet());
   }
 
-  @Override public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> list) throws OWLException
-  {
+  @Override public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> list) {
     this.hasOntologyChanged = true;
 
     if (!eventFreezeMode) {
@@ -1435,7 +1435,7 @@ class DefaultSWRLAPIOWLOntology implements SWRLAPIOWLOntology, OWLOntologyChange
         processOntology();
       } catch (SWRLBuiltInException e) {
         String message = "error processing SQWRL queries in ontology: " + e.getMessage();
-        throw new OWLException(message);
+        throw new OWLRuntimeException(message);
       }
     }
   }

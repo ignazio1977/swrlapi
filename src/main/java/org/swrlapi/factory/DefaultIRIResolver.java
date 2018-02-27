@@ -109,7 +109,7 @@ public class DefaultIRIResolver implements IRIResolver
       return Optional.of(existingPrefixedName);
     else {
       String namespace = iri.getNamespace();
-      com.google.common.base.Optional<@NonNull String> remainder = iri.getRemainder();
+      Optional<@NonNull String> remainder = iri.getRemainder();
       if (remainder.isPresent()) {
         if (namespace.isEmpty()) {
           String prefixedName = remainder.get();
@@ -162,8 +162,8 @@ public class DefaultIRIResolver implements IRIResolver
     if (this.defaultPrefix != null)
       this.prefixManager.setDefaultPrefix(this.defaultPrefix);
 
-    if (ontologyFormat != null && ontologyFormat.isPrefixOWLOntologyFormat()) {
-      PrefixDocumentFormat prefixOntologyFormat = ontologyFormat.asPrefixOWLOntologyFormat();
+    if (ontologyFormat != null && ontologyFormat.isPrefixOWLDocumentFormat()) {
+      PrefixDocumentFormat prefixOntologyFormat = ontologyFormat.asPrefixOWLDocumentFormat();
 
       Map<@NonNull String, String> map = prefixOntologyFormat.getPrefixName2PrefixMap();
       for (String prefix : map.keySet())

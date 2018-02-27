@@ -21,6 +21,7 @@ import org.swrlapi.literal.OWLLiteralComparator;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
+import java.util.stream.Stream;
 
 class DefaultSWRLLiteralBuiltInArgument extends DefaultSWRLBuiltInArgument implements SWRLLiteralBuiltInArgument
 {
@@ -29,6 +30,21 @@ class DefaultSWRLLiteralBuiltInArgument extends DefaultSWRLBuiltInArgument imple
   @NonNull private static final Comparator<OWLLiteral> owlLiteralComparator = OWLLiteralComparator.COMPARATOR;
 
   @NonNull private final OWLLiteral literal;
+
+  @Override
+  public Stream<?> components() {
+      return Stream.of(getLiteral(), getBoundVariableName());
+  }
+
+  @Override
+  public int hashIndex() {
+      return 160683;
+  }
+
+  @Override
+  public int typeIndex() {
+      return 166008;
+  }
 
   public DefaultSWRLLiteralBuiltInArgument(@NonNull OWLLiteral literal)
   {
